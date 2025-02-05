@@ -1,9 +1,10 @@
+"use client"
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../redux/store";
 import { removeMovie } from "../redux/savedMoviesSlice";
 import { Trash2, Play } from "lucide-react";
-import Image from 'next/image'; // Import Next.js Image component
+import Image from "next/image"; // Import Next.js Image component
 
 interface Movie {
   id: number;
@@ -25,23 +26,36 @@ const SavedMovies = () => {
   };
 
   const handleShowTrailer = (movieId: number) => {
-    setSelectedMovie(savedMovies.find((movie) => movie.id === movieId) || null);
+    const foundMovie = savedMovies.find((movie) => movie.id === movieId) as Movie | null;
+  
     setShowTrailer(true);
-    fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=e6199d4a2ef9eb0080b02488fa05e890`)
-      .then((response) => response.json())
-      .then((data) => {
-        const trailer = data.results.find(
-          (video: { type: string; site: string }) => video.type === "Trailer" && video.site === "YouTube"
-        );
-        setTrailerId(trailer?.key || "");
-      });
+    setSelectedMovie(foundMovie); // This should now work without error.
+  
+    if (foundMovie) {
+      fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=e6199d4a2ef9eb0080b02488fa05e890`)
+        .then((response) => response.json())
+        .then((data) => {
+          const trailer = data.results.find(
+            (video: { type: string; site: string }) => video.type === "Trailer" && video.site === "YouTube"
+          );
+          setTrailerId(trailer?.key || ""); // Trailer ID'yi güncelliyoruz
+        })
+        .catch((error) => {
+          console.error("Trailer fetch error:", error);
+          setTrailerId(""); // Hata durumunda trailerId'yi sıfırlıyoruz
+        });
+    }
   };
+  
 
   return (
     <div className="p-4">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
         {savedMovies.map((movie) => (
-          <div key={movie.id} className="relative max-w-xs mx-auto bg-black p-4 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300">
+          <div
+            key={movie.id}
+            className="relative max-w-xs mx-auto bg-black p-4 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
+          >
             <div className="relative">
               <Image
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
