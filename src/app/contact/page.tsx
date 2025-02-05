@@ -28,8 +28,8 @@ const ContactPage = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold uppercase mb-4">
+      <div className="relative z-10 text-center"> <br/>
+        <h1 className="text-4xl md:text-5xl font-bold uppercase mb-4"> 
           Contact Us
         </h1>
         <p className="text-sm md:text-lg mb-6">

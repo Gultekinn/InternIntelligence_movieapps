@@ -81,8 +81,8 @@ const Product = () => {
     if (!slider) return;
 
     intervalRef.current = setInterval(() => {
-      slider.scrollLeft += 2 * scrollDirection;
-    }, 20);
+      slider.scrollLeft += 4 * scrollDirection;
+    }, 10);
   };
 
   return (

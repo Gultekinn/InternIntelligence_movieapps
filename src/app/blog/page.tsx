@@ -47,7 +47,7 @@ const BlogPage = () => {
         <div className="movie-reel"></div>
       </div>
 
-      <div className="relative z-10 text-center mb-8">
+      <div className="relative z-10 text-center mb-8"> <br/>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold uppercase mb-4">
           Movie Creators&apos; Blog
         </h1>
