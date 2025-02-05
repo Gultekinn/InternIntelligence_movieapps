@@ -11,27 +11,42 @@ interface SavedMoviesState {
 }
 
 const initialState: SavedMoviesState = {
-  savedMovies: JSON.parse(localStorage.getItem("savedMovies") || "[]"), // localStorage'dan yükle
+  savedMovies: [], // Başlangıçta boş bir dizi, useEffect içinde güncelleyeceğiz
 };
 
 const savedMoviesSlice = createSlice({
   name: "savedMovies",
   initialState,
   reducers: {
+    setSavedMovies: (state, action: PayloadAction<Movie[]>) => {
+      state.savedMovies = action.payload;
+    },
     addMovie: (state, action: PayloadAction<Movie>) => {
       state.savedMovies.push(action.payload);
-      // Yeni filmi localStorage'a kaydet
-      localStorage.setItem("savedMovies", JSON.stringify(state.savedMovies));
+      // localStorage'a kaydet
+      if (typeof window !== "undefined") {
+        localStorage.setItem("savedMovies", JSON.stringify(state.savedMovies));
+      }
     },
     removeMovie: (state, action: PayloadAction<number>) => {
       state.savedMovies = state.savedMovies.filter(
         (movie) => movie.id !== action.payload
       );
-      // Yeni durumu localStorage'a kaydet
-      localStorage.setItem("savedMovies", JSON.stringify(state.savedMovies));
+      // localStorage'a kaydet
+      if (typeof window !== "undefined") {
+        localStorage.setItem("savedMovies", JSON.stringify(state.savedMovies));
+      }
     },
   },
 });
 
-export const { addMovie, removeMovie } = savedMoviesSlice.actions;
+// Uygulama başladığında localStorage'dan veriyi almak için dispatch kullanmak
+export const loadSavedMovies = () => (dispatch: any) => {
+  if (typeof window !== "undefined") {
+    const savedMovies = JSON.parse(localStorage.getItem("savedMovies") || "[]");
+    dispatch(setSavedMovies(savedMovies));
+  }
+};
+
+export const { addMovie, removeMovie, setSavedMovies } = savedMoviesSlice.actions;
 export default savedMoviesSlice.reducer;

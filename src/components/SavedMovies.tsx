@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../redux/store";
 import { removeMovie } from "../redux/savedMoviesSlice";
 import { Trash2, Play } from "lucide-react";
-import Image from "next/image"; // Import Next.js Image component
+import Image from "next/image";
 
 interface Movie {
   id: number;
@@ -18,7 +18,7 @@ const SavedMovies = () => {
   const savedMovies = useSelector((state: RootState) => state.savedMovies.savedMovies);
   const dispatch = useDispatch<AppDispatch>();
   const [showTrailer, setShowTrailer] = useState(false);
-  const [trailerId, setTrailerId] = useState("");
+  const [trailerId, setTrailerId] = useState<string>("");
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   const handleRemoveMovie = (id: number) => {
@@ -26,19 +26,20 @@ const SavedMovies = () => {
   };
 
   const handleShowTrailer = (movieId: number) => {
-    const foundMovie = savedMovies.find((movie) => movie.id === movieId) as Movie | undefined; // Type assertion to ensure correct type
-  
-    setShowTrailer(true);
-    setSelectedMovie(foundMovie || null); // This should now work without error.
-  
+    const foundMovie = savedMovies.find((movie) => movie.id === movieId) as Movie | undefined;
+
     if (foundMovie) {
+      setShowTrailer(true);
+      setSelectedMovie(foundMovie);
+  
+      // Trailer ID'yi alıyoruz
       fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=e6199d4a2ef9eb0080b02488fa05e890`)
         .then((response) => response.json())
         .then((data) => {
           const trailer = data.results.find(
             (video: { type: string; site: string }) => video.type === "Trailer" && video.site === "YouTube"
           );
-          setTrailerId(trailer?.key || ""); // Trailer ID'yi güncelliyoruz
+          setTrailerId(trailer?.key || "");
         })
         .catch((error) => {
           console.error("Trailer fetch error:", error);
@@ -59,8 +60,8 @@ const SavedMovies = () => {
               <Image
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title}
-                width={500} // Specify the width
-                height={750} // Specify the height
+                width={500}
+                height={750}
                 className="object-cover rounded-lg cursor-pointer"
               />
               <button
@@ -73,12 +74,9 @@ const SavedMovies = () => {
 
             <h2 className="text-sm sm:text-base text-white font-bold mt-4 line-clamp-1">{movie.title}</h2>
             <div className="flex flex-wrap items-center text-sm text-gray-400 mt-2">
-          <span className="mr-4">Length: 01:37</span>
-          <span className="mr-4">Lang: Eng</span>
-        </div>
-
-
-
+              <span className="mr-4">Length: 01:37</span>
+              <span className="mr-4">Lang: Eng</span>
+            </div>
 
             <div className="absolute bottom-9 right-1 flex space-x-2">
               <button
