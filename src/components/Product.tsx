@@ -42,10 +42,10 @@ const Product = () => {
       } else if (slider.scrollLeft <= 0) {
         setScrollDirection(1);
       }
-      slider.scrollLeft += 2 * scrollDirection;
+      slider.scrollLeft += 8 * scrollDirection; // Hız artırıldı
     };
 
-    intervalRef.current = setInterval(scrollMovies, 20);
+    intervalRef.current = setInterval(scrollMovies, 5); // Daha hızlı güncelleme
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -71,7 +71,7 @@ const Product = () => {
 
     e.preventDefault();
     const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 2; // Hız katsayısı
+    const walk = (x - startX) * 4; // Daha hızlı sürükleme
     slider.scrollLeft = scrollLeft - walk;
   };
 
@@ -81,8 +81,8 @@ const Product = () => {
     if (!slider) return;
 
     intervalRef.current = setInterval(() => {
-      slider.scrollLeft += 4 * scrollDirection;
-    }, 10);
+      slider.scrollLeft += 8 * scrollDirection; // Hız artırıldı
+    }, 5);
   };
 
   return (
