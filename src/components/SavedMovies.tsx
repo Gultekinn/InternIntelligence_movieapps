@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../redux/store";
@@ -26,10 +26,10 @@ const SavedMovies = () => {
   };
 
   const handleShowTrailer = (movieId: number) => {
-    const foundMovie = savedMovies.find((movie) => movie.id === movieId) as Movie | null;
+    const foundMovie = savedMovies.find((movie) => movie.id === movieId) as Movie | undefined; // Type assertion to ensure correct type
   
     setShowTrailer(true);
-    setSelectedMovie(foundMovie); // This should now work without error.
+    setSelectedMovie(foundMovie || null); // This should now work without error.
   
     if (foundMovie) {
       fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=e6199d4a2ef9eb0080b02488fa05e890`)
@@ -46,7 +46,6 @@ const SavedMovies = () => {
         });
     }
   };
-  
 
   return (
     <div className="p-4">
@@ -73,10 +72,13 @@ const SavedMovies = () => {
             </div>
 
             <h2 className="text-sm sm:text-base text-white font-bold mt-4 line-clamp-1">{movie.title}</h2>
-            <div className="flex items-center text-xs sm:text-sm text-gray-400 mt-2">
-              <span className="mr-4">Rating: {movie.vote_average.toFixed(1)}</span>
-              <span>Reviews: {movie.vote_count}+</span>
-            </div>
+            <div className="flex flex-wrap items-center text-sm text-gray-400 mt-2">
+          <span className="mr-4">Length: 01:37</span>
+          <span className="mr-4">Lang: Eng</span>
+        </div>
+
+
+
 
             <div className="absolute bottom-9 right-1 flex space-x-2">
               <button
