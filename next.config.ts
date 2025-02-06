@@ -1,11 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['image.tmdb.org'], // TMDB'nin resimlerini yüklemeye izin ver
+    domains: ['image.tmdb.org', 'img.youtube.com'], // Add 'img.youtube.com' here
   },
   eslint: {
-    ignoreDuringBuilds: true, // ESLint yoxlamasını build mərhələsində deaktiv edir
+    ignoreDuringBuilds: true, // Disable ESLint checks during the build process
   },
 };
 
 module.exports = nextConfig;
+
