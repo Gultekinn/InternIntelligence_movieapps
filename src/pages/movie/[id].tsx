@@ -148,7 +148,7 @@ const MovieDetail = () => {
               title="Trailer"
             ></iframe>
             <button onClick={closeModal} className={styles.closeModal}>
-              Close
+            ✕
             </button>
           </div>
         </div>

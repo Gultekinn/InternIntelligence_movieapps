@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Clock } from "lucide-react";
+import { Clock, Play } from "lucide-react";
 import { addMovie, removeMovie } from "../redux/savedMoviesSlice";
 import { RootState } from "../redux/store";
 
@@ -80,7 +80,7 @@ const Card = ({ movie }: { movie: Movie }) => {
             }}
             className="absolute top-2 right-2 bg-red-600 text-white p-2 rounded-full focus:outline-none"
           >
-            ▶
+            <Play size={16} />
           </button>
         </div>
         <h2 className="text-lg text-white font-bold mt-4 line-clamp-1">

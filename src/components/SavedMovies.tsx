@@ -43,7 +43,7 @@ const SavedMovies = () => {
         })
         .catch((error) => {
           console.error("Trailer fetch error:", error);
-          setTrailerId(""); // Hata durumunda trailerId'yi sıfırlıyoruz
+          setTrailerId(""); 
         });
     }
   };
