@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Flixor - Next.js 15, TypeScript, and Tailwind CSS
 
-## Getting Started
+This project is a modern movie browsing app developed using Next.js 15, Tailwind CSS, and TypeScript. It allows users to explore movies, search for their favorites, sort by different criteria, and view detailed information about each movie.
 
-First, run the development server:
+🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Search: Quickly find movies by title.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Sort: Sort movies by popularity, rating, etc.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Movie Details: View detailed information about each movie.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Responsive Design: Fully responsive layout, optimized for desktop, tablet, and mobile devices.
 
-## Learn More
+Clean and Modern UI: Tailwind CSS provides a sleek and minimalistic interface for a better user experience.
 
-To learn more about Next.js, take a look at the following resources:
+📚 Learn More
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Next.js Documentation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Tailwind CSS Documentation
 
-## Deploy on Vercel
+TypeScript Documentation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🌐 Live Demo
+Check out the live version of my portfolio: [Live Demo](https://intern-intelligence-movieapps.vercel.app/)
