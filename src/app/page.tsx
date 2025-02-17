@@ -17,6 +17,7 @@ interface Movie {
   overview: string;
   vote_average: number;
   vote_count: number;
+  trailer_key?: string; 
 }
 
 interface Genre {
@@ -30,6 +31,7 @@ export default function Home() {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
   const [showGenres, setShowGenres] = useState<boolean>(false);
+  const [isTrailerModalOpen, setIsTrailerModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchMoviesData = async () => {
@@ -44,8 +46,20 @@ export default function Home() {
             selectedGenre ? `&with_genres=${selectedGenre}` : ""
           }`
         );
-        setPopularMovies(popularRes.data.results);
-        setFeaturedMovie(popularRes.data.results[0]);
+        const movies = popularRes.data.results;
+        setPopularMovies(movies);
+        setFeaturedMovie(movies[0]);
+
+        const trailerRes = await axios.get(
+          `https://api.themoviedb.org/3/movie/${movies[0].id}/videos?api_key=e6199d4a2ef9eb0080b02488fa05e890`
+        );
+        const trailer = trailerRes.data.results.find((video: any) => video.type === 'Trailer');
+        if (trailer) {
+          setFeaturedMovie(prev => ({
+            ...prev!,
+            trailer_key: trailer.key,
+          }));
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -53,9 +67,17 @@ export default function Home() {
     fetchMoviesData();
   }, [selectedGenre]);
 
+  const handleTrailerClick = () => {
+    setIsTrailerModalOpen(true);
+  };
+
+  const closeTrailerModal = () => {
+    setIsTrailerModalOpen(false);
+  };
+
   return (
     <>
-      <div className="min-h-screen bg-gray-900 text-white relative">
+      <div className="min-h-screen bg-gray-900 text-white relative mt-15">
         {/* Background Animation */}
         <div className="absolute inset-0 bg-cover bg-center filter blur-xl">
           <div className="movie-reel"></div>
@@ -79,14 +101,12 @@ export default function Home() {
                 {featuredMovie.overview}
               </p>
               <div className="flex flex-wrap justify-center sm:justify-start gap-4">
-                <Link
-                  href={`https://www.youtube.com/results?search_query=${featuredMovie.title} trailer`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={handleTrailerClick}
                   className="bg-red-600 px-4 sm:px-6 py-2 rounded-full text-sm sm:text-lg font-semibold"
                 >
-                  Watch Movie
-                </Link>
+                  Watch Trailer
+                </button>
                 <Link
                   href={`/movie/${featuredMovie.id}`}
                   className="border-2 border-white px-4 sm:px-6 py-2 rounded-full text-sm sm:text-lg font-semibold"
@@ -141,7 +161,7 @@ export default function Home() {
         {/* Watch Later */}
         <div className="px-4 md:px-10">
           <h2 className="text-2xl md:text-3xl font-bold my-4">🎬 Watch later</h2>
-          <SavedMovies/>
+          <SavedMovies />
         </div>
 
         {/* Background Animation - Dynamic Gradient */}
@@ -174,6 +194,29 @@ export default function Home() {
             }
           }
         `}</style>
+
+        {/* Trailer Modal */}
+        {isTrailerModalOpen && featuredMovie?.trailer_key && (
+          <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+            <div className="bg-gray-800 p-6 rounded-lg w-full sm:w-11/12 md:w-8/12 lg:w-1/2 relative">
+              <button
+                onClick={closeTrailerModal}
+                className="absolute top-2 right-2 text-white text-2xl font-bold"
+              >
+                X
+              </button>
+              <iframe
+                width="100%"
+                height="400"
+                src={`https://www.youtube.com/embed/${featuredMovie.trailer_key}`}
+                title="Trailer"
+                frameBorder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

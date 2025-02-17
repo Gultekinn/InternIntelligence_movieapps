@@ -64,7 +64,7 @@ export default function Navbar() {
                     href={item.href}
                     className={classNames(
                       pathname === item.href
-                        ? 'text-red-500' // Aktif sayfa kırmızı
+                        ? 'text-red-500'
                         : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'rounded-md px-3 py-2 text-sm font-medium'
                     )}
@@ -76,7 +76,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Search Bar (Desktop) */}
           <div className="hidden md:block relative group">
             <div className="relative">
               <input
@@ -89,7 +88,6 @@ export default function Navbar() {
               <Search className="absolute top-2 right-2 h-5 w-5 text-gray-400" />
             </div>
 
-            {/* Search Results */}
             <div className="absolute left-0 w-full bg-gray-700 mt-1 rounded-md shadow-lg z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
               {searchResults.length > 0 &&
                 searchResults.map((movie) => (
@@ -100,7 +98,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Profile and Notifications */}
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0">
             <button
               type="button"
@@ -110,7 +107,6 @@ export default function Navbar() {
               <Bell aria-hidden="true" className="h-6 w-6" />
             </button>
 
-            {/* Profile dropdown */}
             <Menu as="div" className="relative ml-3">
               <div>
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-none">

@@ -1,9 +1,9 @@
-"use client"; // Bu satırı ekledik
+"use client"; 
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
-// BlogPost türünü tanımladık
+
 interface BlogPost {
   id: number;
   title: string;
@@ -14,7 +14,7 @@ interface BlogPost {
 
 const BlogPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]); // BlogPost tipini kullandık
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]); 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,9 +25,8 @@ const BlogPage = () => {
           "https://api.themoviedb.org/3/discover/movie?api_key=e6199d4a2ef9eb0080b02488fa05e890"
         );
         const data = await response.json();
-        setBlogPosts(data.results); // blogPosts'un tipi artık BlogPost[] olduğu için uyumlu
+        setBlogPosts(data.results); 
       } catch (error) {
-        // error ile ilgili kodu kaldırdık
       } finally {
         setLoading(false);
       }

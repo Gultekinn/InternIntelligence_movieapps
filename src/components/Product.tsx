@@ -42,17 +42,16 @@ const Product = () => {
       } else if (slider.scrollLeft <= 0) {
         setScrollDirection(1);
       }
-      slider.scrollLeft += 8 * scrollDirection; // Hız artırıldı
+      slider.scrollLeft += 8 * scrollDirection; 
     };
 
-    intervalRef.current = setInterval(scrollMovies, 5); // Daha hızlı güncelleme
+    intervalRef.current = setInterval(scrollMovies, 5); 
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [movies, scrollDirection]);
 
-  // Drag scroll fonksiyonları
   const handleMouseDown = (e: React.MouseEvent) => {
     const slider = sliderRef.current;
     if (!slider) return;
@@ -71,7 +70,7 @@ const Product = () => {
 
     e.preventDefault();
     const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 4; // Daha hızlı sürükleme
+    const walk = (x - startX) * 4; 
     slider.scrollLeft = scrollLeft - walk;
   };
 
@@ -81,7 +80,7 @@ const Product = () => {
     if (!slider) return;
 
     intervalRef.current = setInterval(() => {
-      slider.scrollLeft += 8 * scrollDirection; // Hız artırıldı
+      slider.scrollLeft += 8 * scrollDirection; 
     }, 5);
   };
 
@@ -94,7 +93,7 @@ const Product = () => {
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp} // Dışarı çıkınca kaydırmayı durdur
+          onMouseLeave={handleMouseUp} 
         >
           {movies.concat(movies).map((movie, index) => (
             <div key={index} className="flex-shrink-0 w-[300px]">

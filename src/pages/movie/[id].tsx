@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Play } from "lucide-react";
 import styles from "./MovieDetail.module.css";
-import Image from 'next/image'; // Importing Image from next/image
+import Image from 'next/image'; 
 
 interface MovieDetail {
   title: string;
@@ -73,8 +73,8 @@ const MovieDetail = () => {
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
           className={styles.heroImage}
-          width={500} // Add a fixed width for optimization
-          height={750} // Add a fixed height for optimization
+          width={500}
+          height={750} 
         />
         <div className={styles.overlay}>
           <div className={styles.textContainer}>
@@ -118,8 +118,8 @@ const MovieDetail = () => {
                     src={`https://img.youtube.com/vi/${video.key}/0.jpg`}
                     alt={video.name}
                     className={styles.videoImage}
-                    width={500} // Width of the image
-                    height={281} // Height of the image (16:9 aspect ratio)
+                    width={500}
+                    height={281} 
                   />
                   <div className={styles.playButton}>
                     <Play />

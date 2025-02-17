@@ -32,7 +32,7 @@ const SavedMovies = () => {
       setShowTrailer(true);
       setSelectedMovie(foundMovie);
   
-      // Trailer ID'yi alıyoruz
+      // Trailer ID'yi 
       fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=e6199d4a2ef9eb0080b02488fa05e890`)
         .then((response) => response.json())
         .then((data) => {

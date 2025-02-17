@@ -1,7 +1,7 @@
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { Providers } from '@/redux/Providers'; // Doğru yolu kontrol edin
+import { Providers } from '@/redux/Providers'; 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (

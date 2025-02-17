@@ -11,7 +11,7 @@ interface SavedMoviesState {
 }
 
 const initialState: SavedMoviesState = {
-  savedMovies: [], // Başlangıçta boş bir dizi, useEffect içinde güncelleyeceğiz
+  savedMovies: [], 
 };
 
 const savedMoviesSlice = createSlice({
@@ -23,7 +23,6 @@ const savedMoviesSlice = createSlice({
     },
     addMovie: (state, action: PayloadAction<Movie>) => {
       state.savedMovies.push(action.payload);
-      // localStorage'a kaydet
       if (typeof window !== "undefined") {
         localStorage.setItem("savedMovies", JSON.stringify(state.savedMovies));
       }
@@ -32,7 +31,6 @@ const savedMoviesSlice = createSlice({
       state.savedMovies = state.savedMovies.filter(
         (movie) => movie.id !== action.payload
       );
-      // localStorage'a kaydet
       if (typeof window !== "undefined") {
         localStorage.setItem("savedMovies", JSON.stringify(state.savedMovies));
       }
@@ -40,7 +38,6 @@ const savedMoviesSlice = createSlice({
   },
 });
 
-// Uygulama başladığında localStorage'dan veriyi almak için dispatch kullanmak
 export const loadSavedMovies = () => (dispatch: any) => {
   if (typeof window !== "undefined") {
     const savedMovies = JSON.parse(localStorage.getItem("savedMovies") || "[]");
