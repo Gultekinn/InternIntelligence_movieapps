@@ -77,7 +77,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-900 text-white relative mt-15">
+      <div className="min-h-screen bg-gray-900 text-white relative mt-18">
         {/* Background Animation */}
         <div className="absolute inset-0 bg-cover bg-center filter blur-xl">
           <div className="movie-reel"></div>
